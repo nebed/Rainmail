@@ -2,7 +2,7 @@ def prompt_for_options():
 	
 	while True:
 		try:
-			choose_way = int(raw_input("Enter 1 for Express Settings or Enter 2 to Create Your Own Setup : "))
+			choose_way = int( input("Enter 1 for Express Settings or Enter 2 to Create Your Own Setup : "))
 		except ValueError:
 			print("Input a NUMBER Lad")
 			continue
