@@ -317,12 +317,12 @@ def express_settings():
 def custom_settings():
 	
 	available_engines = { 
-		'1':'Google'
-		'2':'Yandex'
-		'3':'Bing'
-		'4':'Yahoo'
-		'5':'Baidu'
-		'6':'DuckDuckGo'
+		'1':'Google',
+		'2':'Yandex',
+		'3':'Bing',
+		'4':'Yahoo',
+		'5':'Baidu',
+		'6':'DuckDuckGo',
 		'7':'Ask'
 	}
 	scrape_method_default = 'selenium'
@@ -389,7 +389,7 @@ def custom_settings():
 	while True:
 		search_engines_user = [ ]
 		try:
-			choose_engines = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask ))
+			choose_engines = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask "))
 		except ValueError:
 			print("Input a valid single number or a series of numbers in any order")
 			continue
@@ -447,7 +447,7 @@ def custom_settings():
 			break
 		elif continue_last_scrape_user == 'y':
 			continue_last_scrape_user = True
-			print("Last Scrape Will be Continued!!)
+			print("Last Scrape Will be Continued!")
 			break
 		else:
 			print("Make a Valid Choice")
@@ -474,7 +474,7 @@ def custom_settings():
 			use_own_ip_user = False
 			print("Proxy must be Specified")
 			while True:
-				print("Proxies must be of one of the following formats 'socks5 23.212.45.13= 1080 username= password' 'socks4 23.212.45.13= 80 username= password' 'http 23.212.45.13= 80')
+				print("Proxies must be of one of the following formats 'socks5 23.212.45.13= 1080 username= password' 'socks4 23.212.45.13= 80 username= password' 'http 23.212.45.13= 80'")
 				proxy_file_user = raw_input("Specify a Vaild path to a Proxy file")
 				break
 			break
