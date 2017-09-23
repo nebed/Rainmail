@@ -231,6 +231,7 @@ countries = {
 	'ZW':'Zimbabwe',
 
 }
+
 def prompt_for_options():
 	
 	while True:
@@ -251,6 +252,7 @@ def prompt_for_options():
 		print("You Will Need to Specify Your own Settings")
 		
 	return choose_way
+
 def express_settings():
 	print("Available Search Country Codes are: "),
 	print(countrycodes)
@@ -543,6 +545,7 @@ def custom_settings():
 		'maximum_workers':maximum_workers_default
 	}
 	return config
+
 def start_search(config):
 	urls_to_process = deque([ ])
 	try:
@@ -593,6 +596,7 @@ def process_urls(urls_to_process):
 			if not link in urls_to_process and not link in processed_urls:   # add the new url to the queue if it was not enqueued nor processed yet
 				urls_to_process.append(link)
 	return emails
+
 def rainmail():
 	if prompt_for_options() == 1:
 		print(process_urls(start_search(express_settings())))
