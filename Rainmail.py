@@ -235,7 +235,7 @@ def prompt_for_options():
 	
 	while True:
 		try:
-			choose_way = int(raw_input("Enter 1 for Express Settings or Enter 2 to Create Your Own Setup : "))
+			choose_way = int( input("Enter 1 for Express Settings or Enter 2 to Create Your Own Setup : "))
 		except ValueError:
 			print("Input a NUMBER Lad")
 			continue
@@ -255,7 +255,7 @@ def express_settings():
 	print("Available Search Country Codes are: "),
 	print(countrycodes)
 	while True:
-		chosen_country = raw_input("Choose a Valid Search Country using Country Code: ").upper()
+		chosen_country = str(input("Choose a Valid Search Country using Country Code: ")).upper()
 		if (len(chosen_country) != 2):
 			print("It Must Be Two Characters Only")
 			continue
@@ -267,7 +267,7 @@ def express_settings():
 			print("You have not Chosen a Searchable Country")
 			continue
 	while True:
-		choose_keyword = raw_input("Enter Keyword or Sentence to Search: ")
+		choose_keyword = str(input("Enter Keyword or Sentence to Search: "))
 		chosen_keyword = str(choose_keyword)
 		if (len(chosen_keyword) > 0):
 			print("You Have Chosen to Search: ")
@@ -276,40 +276,40 @@ def express_settings():
 		else:
 			print("You have not input anything")
 			continue
-		google_search_url_default = 'https://www.google.' + chosen_country.lower() + '/search?hl=en'
-		use_own_ip_default = True
-		continue_last_scrape_default = False
-		sel_browser_default = 'chrome'
-		manual_captcha_solving_default = 'False'
-		scrape_method_default = 'selenium'
-		search_engines_default = ['google']
-		print_results_default = 'summarize'
-		num_results_per_page_default = 10
-		num_workers_default = 1
-		num_pages_for_keyword_default = 5
-		maximum_workers_default = 5
-		google_sleeping_ranges_default = {
+	google_search_url_default = 'https://www.google.' + chosen_country.lower() + '/search?hl=en'
+	use_own_ip_default = True
+	continue_last_scrape_default = False
+	sel_browser_default = 'chrome'
+	manual_captcha_solving_default = 'False'
+	scrape_method_default = 'selenium'
+	search_engines_default = ['google']
+	print_results_default = 'summarize'
+	num_results_per_page_default = 10
+	num_workers_default = 1
+	num_pages_for_keyword_default = 5
+	maximum_workers_default = 5
+	google_sleeping_ranges_default = {
 			1:(50,70),
 			5:(70,100),
 			30:(100,215),
 			127:(125,200),
 		}
-		keywords = [ chosen_keyword ] 
-		config = {
-			'keywords':keywords,
-			'google_search_url':google_search_url_default, 
-			'use_own_ip':use_own_ip_default, 
-			'continue_last_scrape':continue_last_scrape_default,
-			'sel_bowser':sel_browser_default, 
-			'manual_captcha_solving':manual_captcha_solving_default,
-			'scrape_method':scrape_method_default,
-			'search_engines':search_engines_default,
-			'print_results':print_results_default,
-			'num_results_per_page':num_results_per_page_default,
-			'num_workers':num_workers_default,
-			'num_pages_for_keyword':num_pages_for_keyword_default,
-			'google_sleeping_ranges':google_sleeping_ranges_default,
-			'maximum_workers':maximum_workers_default
+	keywords = [ chosen_keyword ] 
+	config = {
+		'keywords':keywords,
+		'google_search_url':google_search_url_default, 
+		'use_own_ip':use_own_ip_default, 
+		'continue_last_scrape':continue_last_scrape_default,
+		'sel_bowser':sel_browser_default, 
+		'manual_captcha_solving':manual_captcha_solving_default,
+		'scrape_method':scrape_method_default,
+		'search_engines':search_engines_default,
+		'print_results':print_results_default,
+		'num_results_per_page':num_results_per_page_default,
+		'num_workers':num_workers_default,
+		'num_pages_for_keyword':num_pages_for_keyword_default,
+		'google_sleeping_ranges':google_sleeping_ranges_default,
+		'maximum_workers':maximum_workers_default
 		}
 
 	return config
@@ -339,7 +339,7 @@ def custom_settings():
 	print(countrycodes)
 
 	while True:
-		chosen_country = raw_input("Choose a Valid Search Country using Country Code: ").upper()
+		chosen_country = str(input("Choose a Valid Search Country using Country Code: ")).upper()
 		if (len(chosen_country) != 2):
 			print("It Must Be Two Characters Only")
 			continue
@@ -353,7 +353,7 @@ def custom_settings():
 			continue
 
 	while True:
-		choose_keyword = raw_input("Enter Keyword or Sentence to Search: ")
+		choose_keyword = input("Enter Keyword or Sentence to Search: ")
 		chosen_keyword = str(choose_keyword)
 		if (len(chosen_keyword) > 0):
 			print("You Have Chosen to Search: ")
@@ -364,7 +364,7 @@ def custom_settings():
 			continue
 
 	while True:
-		choose_browser = raw_input("Choose Scrape Browser! Enter 1 to choose Chrome, 2 to choose Firefox, 3 to choose Phantomjs, nothing to choose default: ")
+		choose_browser = input("Choose Scrape Browser! Enter 1 to choose Chrome, 2 to choose Firefox, 3 to choose Phantomjs, nothing to choose default: ")
 		
 		if int(choose_browser) == 1:
 			sel_browser_user = 'Chrome'
@@ -389,7 +389,7 @@ def custom_settings():
 	while True:
 		search_engines_user = [ ]
 		try:
-			choose_engines = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask "))
+			choose_engines = int(input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask "))
 		except ValueError:
 			print("Input a valid single number or a series of numbers in any order")
 			continue
@@ -440,7 +440,7 @@ def custom_settings():
 			continue
 						       
 	while True:
-		continue_last_scrape_user = (raw_input("Do You Want to Continue Last Scrape: Y/N or Enter for default ") or 'N').lower()
+		continue_last_scrape_user = str(input("Do You Want to Continue Last Scrape: Y/N or Enter for default ") or 'N').lower()
 		if continue_last_scrape_user == 'n':
 			continue_last_scrape_user = False
 			print("Last Scrape Will not be Continued")
@@ -454,7 +454,7 @@ def custom_settings():
 			continue
 	
 	while True:
-		manual_captcha_solving_user = (raw_input("Do You Want to Solve Captcha Manually, if You select False if there is a captcha the page will not be processed: Y/N or Enter for Default ") or 'N').lower()
+		manual_captcha_solving_user = str(input("Do You Want to Solve Captcha Manually, if You select False if there is a captcha the page will not be processed: Y/N or Enter for Default ") or 'N').lower()
 		if manual_captcha_solving_user == 'n':
 			manual_captcha_solving_user = False
 			print("Captcha will not be Solved")
@@ -469,13 +469,13 @@ def custom_settings():
 			
 	
 	while True:
-		use_own_ip_user = (raw_input("Do You Want to use Your own IP for the search, if You select False if there is no proxy specified the search will not be performed: Y/N or Enter for Default ") or 'Y').lower()
+		use_own_ip_user = str(input("Do You Want to use Your own IP for the search, if You select False if there is no proxy specified the search will not be performed: Y/N or Enter for Default ") or 'Y').lower()
 		if use_own_ip_user == 'n':
 			use_own_ip_user = False
 			print("Proxy must be Specified")
 			while True:
 				print("Proxies must be of one of the following formats 'socks5 23.212.45.13= 1080 username= password' 'socks4 23.212.45.13= 80 username= password' 'http 23.212.45.13= 80'")
-				proxy_file_user = raw_input("Specify a Vaild path to a Proxy file")
+				proxy_file_user = input("Specify a Vaild path to a Proxy file")
 				break
 			break
 		elif use_own_ip_user == 'y':
@@ -488,7 +488,7 @@ def custom_settings():
 	
 	while True:
 		try:
-			num_pages_for_keyword_user = int(raw_input(" Enter How Many Pages of Google Results will be scraped between 1 and 15 or press Enter for Default ") or 5)
+			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 15 or press Enter for Default ") or 5)
 		except ValueError:
 			print("Must be a Number")
 			continue
@@ -502,7 +502,7 @@ def custom_settings():
 	
 	while True:
 		try:
-			num_results_per_page_user = int(raw_input(" Enter How Many results will be displayed per page between 1 and 15 or press Enter for Default ") or 10)
+			num_results_per_page_user = int(input(" Enter How Many results will be displayed per page between 1 and 15 or press Enter for Default ") or 10)
 		except ValueError:
 			print("Must be a Number")
 			continue
@@ -514,7 +514,7 @@ def custom_settings():
 			break
 	while True:
 		try:
-			num_workers_user = int(raw_input(" Enter How Many Browser instances will perform the search 1 and 10 or press Enter for Default ") or 1)
+			num_workers_user = int(input(" Enter How Many Browser instances will perform the search 1 and 10 or press Enter for Default ") or 1)
 		except ValueError:
 			print("Must be a Number")
 			continue
@@ -599,6 +599,7 @@ def rainmail():
 	elif prompt_for_options() == 2:
 		print(process_urls(start_search(custom_settings())))
 	return True
+
 rainmail()
 		
 	
