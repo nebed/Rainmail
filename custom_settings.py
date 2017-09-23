@@ -131,23 +131,108 @@ def custom_settings():
 			break			   
 		else:
 			continue
-
-		
-		keywords = [ chosen_keyword ] 
-		config = {
-			'google_search_url':google_search_url_user, 
-			'use_own_ip':use_own_ip_default, 
-			'continue_last_scrape':continue_last_scrape_default,
-			'sel_bowser':sel_browser_default, 
-			'manual_captcha_solving':manual_captcha_solving_default,
-			'scrape_method':scrape_method_default,
-			'search_engines':search_engines_user,
-			'print_results':print_results_default,
-			'num_results_per_page':num_results_per_page_default,
-			'num_workers':num_workers_default,
-			'num_pages_for_keyword':num_pages_for_keyword_default,
-			'google_sleeping_ranges':google_sleeping_ranges_default,
-		}
+						       
+	while True:
+		continue_last_scrape_user = (raw_input("Do You Want to Continue Last Scrape: Y/N or Enter for default ") or 'N').lower()
+		if continue_last_scrape_user == 'n':
+			continue_last_scrape_user = False
+			print("Last Scrape Will not be Continued")
+			break
+		elif continue_last_scrape_user == 'y':
+			continue_last_scrape_user = True
+			print("Last Scrape Will be Continued!!)
+			break
+		else:
+			print("Make a Valid Choice")
+			continue
+	
+	while True:
+		manual_captcha_solving_user = (raw_input("Do You Want to Solve Captcha Manually, if You select False if there is a captcha the page will not be processed: Y/N or Enter for Default ") or 'N').lower()
+		if manual_captcha_solving_user == 'n':
+			manual_captcha_solving_user = False
+			print("Captcha will not be Solved")
+			break
+		elif manual_captcha_solving_user == 'y':
+			manual_captcha_solving_user = True
+			print("Captcha will be Solved by You")
+			break
+		else:
+			print("Make a Valid Choice")
+			continue
+			
+	
+	while True:
+		use_own_ip_user = (raw_input("Do You Want to use Your own IP for the search, if You select False if there is no proxy specified the search will not be performed: Y/N or Enter for Default ") or 'Y').lower()
+		if use_own_ip_user == 'n':
+			use_own_ip_user = False
+			print("Proxy must be Specified")
+			while True:
+				print("Proxies must be of one of the following formats 'socks5 23.212.45.13= 1080 username= password' 'socks4 23.212.45.13= 80 username= password' 'http 23.212.45.13= 80')
+				proxy_file_user = raw_input("Specify a Vaild path to a Proxy file")
+				break
+			break
+		elif use_own_ip_user == 'y':
+			use_own_ip_user = True
+			print("Your IP will be Used")
+			break
+		else:
+			print("Make a Valid Choice")
+			continue
+	
+	while True:
+		try:
+			num_pages_for_keyword_user = int(raw_input(" Enter How Many Pages of Google Results will be scraped between 1 and 15 or press Enter for Default ") or 5)
+		except ValueError:
+			print("Must be a Number")
+			continue
+		if (num_pages_for_keyword_user < 1 and num_pages_for_keyword_user > 15):
+			print("Enter a Valid Number")
+			continue
+		else:
+			print("You Have Chosen ", num_pages_for_keyword_user, "pages")
+			break
+				      
+	
+	while True:
+		try:
+			num_results_per_page_user = int(raw_input(" Enter How Many results will be displayed per page between 1 and 15 or press Enter for Default ") or 10)
+		except ValueError:
+			print("Must be a Number")
+			continue
+		if (num_results_per_page_user < 1 and num_results_per_page_user > 15):
+			print("Enter a Valid Number")
+			continue
+		else:
+			print("You Have Chosen ", num_results_per_page_user, "results per page")
+			break
+	while True:
+		try:
+			num_workers_user = int(raw_input(" Enter How Many Browser instances will perform the search 1 and 10 or press Enter for Default ") or 1)
+		except ValueError:
+			print("Must be a Number")
+			continue
+		if (num_workers_user < 1 and num_workers_user > 10):
+			print("Enter a Valid Number")
+			continue
+		else:
+			print("You Have Chosen ", num_results_per_page_user, "results per page")
+			break
+	
+	keywords = [ chosen_keyword ] 
+	config = {
+		'google_search_url':google_search_url_user, 
+		'use_own_ip':use_own_ip_user, 
+		'continue_last_scrape':continue_last_scrape_user,
+		'sel_bowser':sel_browser_user, 
+		'manual_captcha_solving':manual_captcha_solving_user,
+		'scrape_method':scrape_method_default,
+		'search_engines':search_engines_user,
+		'print_results':print_results_default,
+		'num_results_per_page':num_results_per_page_user,
+		'num_workers':num_workers_user,
+		'num_pages_for_keyword':num_pages_for_keyword_user,
+		'google_sleeping_ranges':google_sleeping_ranges_default,
+	}
 
      
     
