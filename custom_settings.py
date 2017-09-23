@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*-
 
 def custom_settings():
-	use_own_ip_default = True
-	continue_last_scrape_default = False
-	manual_captcha_solving_default = 'False'
+	
+	available_engines = { 
+		'1':'Google'
+		'2':'Yandex'
+		'3':'Bing'
+		'4':'Yahoo'
+		'5':'Baidu'
+		'6':'DuckDuckGo'
+		'7':'Ask'
+	}
 	scrape_method_default = 'selenium'
-	search_engines_default = ['google']
 	print_results_default = 'summarize'
-	num_results_per_page_default = 10
-	num_workers_default = 1
-	num_pages_for_keyword_default = 5
-	maximum_workers_default = 5
+	maximum_workers_default = 20
 	google_sleeping_ranges_default = {
 		1:(50,70),
 		5:(70,100),
@@ -71,15 +74,6 @@ def custom_settings():
 			continue
 
 	while True:
-		available_engines = { 
-			'1':'Google'
-			'2':'Yandex'
-			'3':'Bing'
-			'4':'Yahoo'
-			'5':'Baidu'
-			'6':'DuckDuckGo'
-			'7':'Ask'
-		}
 		search_engines_user = [ ]
 		try:
 			choose_engines = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask ))
@@ -232,7 +226,9 @@ def custom_settings():
 		'num_workers':num_workers_user,
 		'num_pages_for_keyword':num_pages_for_keyword_user,
 		'google_sleeping_ranges':google_sleeping_ranges_default,
+		'maximum_workers':maximum_workers_default
 	}
+	return config
 
      
     
