@@ -7,17 +7,16 @@ from os import path
 
 
 def start_search(config):
+	urls_to_process = deque([ ])
 	try:
 		search = scrape_with_config(config)
 	except GoogleSearchError as e:
 		print(e)
 
-#f = open('searchresultlinks.txt','w')    #indicate name of output file with google search links
-#sys.stdout = f
-#path= '/home/Desktop'
 	for serp in search.serps:
-	#print(serp)
+		print(serp)
+
 		for link in serp.links:
-		#print(link)
-			print (link, f)  # or f.write('...\n')  print each link to the file
-f.close()
+			url = str(link)
+			urls_to_process = urls_to_process.append(url)
+
