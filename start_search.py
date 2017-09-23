@@ -19,4 +19,5 @@ def start_search(config):
 		for link in serp.links:
 			url = str(link)
 			urls_to_process = urls_to_process.append(url)
+	return urls_to_process
 
