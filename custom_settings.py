@@ -71,16 +71,66 @@ def custom_settings():
 			continue
 
 	while True:
+		available_engines = { 
+			'1':'Google'
+			'2':'Yandex'
+			'3':'Bing'
+			'4':'Yahoo'
+			'5':'Baidu'
+			'6':'DuckDuckGo'
+			'7':'Ask'
+		}
+		search_engines_user = [ ]
 		try:
-			choose_way = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask ))
+			choose_engines = int(raw_input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask ))
 		except ValueError:
-			print("Input a single number or a series of numbers")
+			print("Input a valid single number or a series of numbers in any order")
 			continue
-		if (choose_way > 2 or choose_way < 1):
-			print("Your Choice is not an Option")
-			continue
-		else:
+		choose_engines = str(choose_engines)
+						   
+		from itertools import permutations				   
+		if choose_engines in itertools.permutations('1234567', 1):
+			search_engines_user = [available_engines[choose_engines]]
+			print("Your Choice was: ", available_engines[choose_engines])
 			break
+						   
+		elif choose_engines in itertools.permutations('1234567', 2):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break
+		
+		elif choose_engines in itertools.permutations('1234567', 3):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break			   
+		
+		elif choose_engines in itertools.permutations('1234567', 4):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break			   
+		
+		elif choose_engines in itertools.permutations('1234567', 5):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break
+		
+		elif choose_engines in itertools.permutations('1234567', 6):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break				   
+		
+		elif choose_engines in itertools.permutations('1234567', 7):
+			for choice in choose_engines:
+				search_engines_user = search_engines_user.append(available_engines[choose_engines])
+				print("You have Chosen: ", available_engines[choose_engines])
+			break			   
+		else:
+			continue
 
 		
 		keywords = [ chosen_keyword ] 
@@ -91,7 +141,7 @@ def custom_settings():
 			'sel_bowser':sel_browser_default, 
 			'manual_captcha_solving':manual_captcha_solving_default,
 			'scrape_method':scrape_method_default,
-			'search_engines':search_engines_default,
+			'search_engines':search_engines_user,
 			'print_results':print_results_default,
 			'num_results_per_page':num_results_per_page_default,
 			'num_workers':num_workers_default,
@@ -101,36 +151,3 @@ def custom_settings():
 
      
     
-
-     
-
-
-
-'''
-
-# See in the config.cfg file for possible values
-config = {
-    'use_own_ip': True,
-    'keywords': keywords,
-    'search_engines': ['google'],   #add other search engines if you need
-    'num_pages_for_keyword': 50,
-    'scrape_method': 'selenium',
-    'sel_browser': 'chrome',
-}
-
-try:
-	search = scrape_with_config(config)
-except GoogleSearchError as e:
-	print(e)'''
-
-'''f = open('searchresultlinks.txt','w')    #indicate name of output file with google search links
-sys.stdout = f
-path= '/home/Desktop'
-
-for serp in search.serps:
-	#print(serp)
-
-	for link in serp.links:
-		#print(link)
-		print (link, f)  # or f.write('...\n')  print each link to the file
-f.close()'''
