@@ -11,6 +11,7 @@ import requests.exceptions
 from urllib.parse import urlsplit
 from collections import deque
 import re
+from itertools import permutations
 
 
 
@@ -232,6 +233,8 @@ countries = {
 
 }
 
+#function to choose express settings or user-defined search settings 
+
 def prompt_for_options():
 	
 	while True:
@@ -240,18 +243,19 @@ def prompt_for_options():
 		except ValueError:
 			print("Input a NUMBER Lad")
 			continue
-		if (choose_way > 2 or choose_way < 1):
-			print("Your Choice is not an Option")
-			continue
-		else:
+		if choose_way == 1:
+			print("You Have Chosen Express Settings")
 			break
-			
-	if choose_way == 1:
-		print("You Have Chosen Express Settings")
-	elif choose_way ==2:
-		print("You Will Need to Specify Your own Settings")
+		elif choose_way ==2:
+			print("You Will Need to Specify Your own Settings")
+			break
 		
+		else:
+			print("Make a Valid Choice")
+			continue
 	return choose_way
+
+#function to set default search parameters
 
 def express_settings():
 	print("Available Search Country Codes are: "),
@@ -288,15 +292,22 @@ def express_settings():
 	print_results_default = 'summarize'
 	num_results_per_page_default = 10
 	num_workers_default = 1
-	num_pages_for_keyword_default = 5
-	maximum_workers_default = 5
-	google_sleeping_ranges_default = {
-			1:(50,70),
-			5:(70,100),
-			30:(100,215),
-			127:(125,200),
-		}
+	num_pages_for_keyword_default = 20
+	maximum_workers_default = 20
 	keywords = [ chosen_keyword ] 
+	sleeping_ranges_default = {
+		1:  (1, 2),
+		5:  (2, 4),
+		30: (10, 20),
+		127: (30, 50),
+	}
+	google_sleeping_ranges_default = {
+		1:  (2, 3),
+		5:  (3, 5),
+		30: (10, 20),
+		127: (30, 50),
+	}
+
 	config = {
 		'keywords':keywords,
 		'google_search_url':google_search_url_default, 
@@ -310,11 +321,16 @@ def express_settings():
 		'num_results_per_page':num_results_per_page_default,
 		'num_workers':num_workers_default,
 		'num_pages_for_keyword':num_pages_for_keyword_default,
-		'google_sleeping_ranges':google_sleeping_ranges_default,
-		'maximum_workers':maximum_workers_default
+		'maximum_workers':maximum_workers_default,
+		'search_offset':1,
+		'sleeping_ranges':sleeping_ranges_default,
+		'google_sleeping_ranges':google_sleeping_ranges_default
+
 		}
 
 	return config
+
+#function to set user defined search parameters
 
 def custom_settings():
 	
@@ -330,11 +346,17 @@ def custom_settings():
 	scrape_method_default = 'selenium'
 	print_results_default = 'summarize'
 	maximum_workers_default = 20
+	sleeping_ranges_default = {
+		1:  (1, 2),
+		5:  (2, 4),
+		30: (10, 20),
+		127: (30, 50),
+	}
 	google_sleeping_ranges_default = {
-		1:(50,70),
-		5:(70,100),
-		30:(100,215),
-		127:(125,200),
+		1:  (2, 3),
+		5:  (3, 5),
+		30: (10, 20),
+		127: (30, 50),
 	}
 
 	print("Available Search Country Codes are: "),
@@ -366,8 +388,11 @@ def custom_settings():
 			continue
 
 	while True:
-		choose_browser = input("Choose Scrape Browser! Enter 1 to choose Chrome, 2 to choose Firefox, 3 to choose Phantomjs, nothing to choose default: ")
-		
+		try:
+			choose_browser = int(input("Choose Scrape Browser! Enter 1 to choose Chrome, 2 to choose Firefox, 3 to choose Phantomjs Press Enter to Choose Default: " ) or 1)
+		except ValueError:
+			print("Choose a Valid Input or Press Enter to Choose Default")
+			continue
 		if int(choose_browser) == 1:
 			sel_browser_user = 'Chrome'
 			print("You Have Chosen Chrome: ")
@@ -380,67 +405,64 @@ def custom_settings():
 			sel_browser_user = 'Phantomjs'
 			print("You Have Chosen Phantomjs: ")
 			break
-		elif choose_browser =='':
-			sel_browser_user = 'Chrome'
-			print("The default Browser is Chrome")
-			break
 		else:
 			print("Make a Valid Choice")
 			continue
 
 	while True:
-		search_engines_user = [ ]
+		search_engines_use = []
+		search_engines_user = []
 		try:
 			choose_engines = int(input("Choose Search Engine options, you can enter more than one 1. Google, 2. Yandex, 3. Bing, 4. Yahoo, 5. Baidu, 6. DuckDuckGo, 7. Ask "))
 		except ValueError:
 			print("Input a valid single number or a series of numbers in any order")
 			continue
 		choose_engines = str(choose_engines)
-						   
-		from itertools import permutations				   
-		if choose_engines in itertools.permutations('1234567', 1):
+				   
+		if choose_engines in [''.join(i) for i in permutations('1234567', 1)]:
 			search_engines_user = [available_engines[choose_engines]]
 			print("Your Choice was: ", available_engines[choose_engines])
 			break
 						   
-		elif choose_engines in itertools.permutations('1234567', 2):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 2)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break
 		
-		elif choose_engines in itertools.permutations('1234567', 3):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 3)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break			   
 		
-		elif choose_engines in itertools.permutations('1234567', 4):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 4)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break			   
 		
-		elif choose_engines in itertools.permutations('1234567', 5):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 5)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break
 		
-		elif choose_engines in itertools.permutations('1234567', 6):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 6)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break				   
 		
-		elif choose_engines in itertools.permutations('1234567', 7):
+		elif choose_engines in [''.join(i) for i in permutations('1234567', 7)]:
 			for choice in choose_engines:
-				search_engines_user = search_engines_user.append(available_engines[choose_engines])
-				print("You have Chosen: ", available_engines[choose_engines])
+				search_engines_user.append(available_engines[str(choice)])
+				print("You have Chosen: ", available_engines[str(choice)])
 			break			   
 		else:
 			continue
-						       
+				
+	print(search_engines_user)		       
 	while True:
 		continue_last_scrape_user = str(input("Do You Want to Continue Last Scrape: Y/N or Enter for default ") or 'N').lower()
 		if continue_last_scrape_user == 'n':
@@ -490,11 +512,11 @@ def custom_settings():
 	
 	while True:
 		try:
-			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 15 or press Enter for Default ") or 5)
+			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 50 or press Enter for Default ") or 20)
 		except ValueError:
 			print("Must be a Number")
 			continue
-		if (num_pages_for_keyword_user < 1 and num_pages_for_keyword_user > 15):
+		if (num_pages_for_keyword_user < 1 and num_pages_for_keyword_user > 150):
 			print("Enter a Valid Number")
 			continue
 		else:
@@ -541,13 +563,18 @@ def custom_settings():
 		'num_results_per_page':num_results_per_page_user,
 		'num_workers':num_workers_user,
 		'num_pages_for_keyword':num_pages_for_keyword_user,
+		'maximum_workers':maximum_workers_default,
+		'search_offset':1,
+		'sleeping_ranges':sleeping_ranges_default,
 		'google_sleeping_ranges':google_sleeping_ranges_default,
-		'maximum_workers':maximum_workers_default
+
 	}
 	return config
 
+#function to perform search based on input configuration
+
 def start_search(config):
-	urls_to_process = deque([ ])
+	urls_to_process = deque()
 	try:
 		search = scrape_with_config(config)
 	except GoogleSearchError as e:
@@ -557,9 +584,13 @@ def start_search(config):
 		print(serp)
 
 		for link in serp.links:
+			print(link)
 			retrieved_url = str(link)
-			urls_to_process = urls_to_process.append(retrieved_url)
+			end = len(retrieved_url) -1
+			urls_to_process.append(retrieved_url[25:end])
 	return urls_to_process
+
+#funtion to extract email addresses from web pages
 
 def process_urls(urls_to_process):
 
@@ -597,7 +628,10 @@ def process_urls(urls_to_process):
 				urls_to_process.append(link)
 	return emails
 
+#main function to start search
+
 def rainmail():
+
 	if prompt_for_options() == 1:
 		print(process_urls(start_search(express_settings())))
 	elif prompt_for_options() == 2:
