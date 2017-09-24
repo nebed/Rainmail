@@ -6,16 +6,15 @@ def prompt_for_options():
 		except ValueError:
 			print("Input a NUMBER Lad")
 			continue
-		if (choose_way > 2 or choose_way < 1):
-			print("Your Choice is not an Option")
-			continue
-		else:
+		if choose_way == 1:
+			print("You Have Chosen Express Settings")
 			break
-			
-	if choose_way == 1:
-		print("You Have Chosen Express Settings")
-	elif choose_way ==2:
-		print("You Will Need to Specify Your own Settings")
+		elif choose_way ==2:
+			print("You Will Need to Specify Your own Settings")
+			break
 		
+		else:
+			print("Make a Valid Choice")
+			continue
 	return choose_way
        
