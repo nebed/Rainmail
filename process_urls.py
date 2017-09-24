@@ -5,6 +5,8 @@ from urllib.parse import urlsplit
 from collections import deque
 import re
 
+#funtion to extract email addresses from web pages
+
 def process_urls(urls_to_process):
 
 	processed_urls = set()  # a set of urls that have already been crawled
