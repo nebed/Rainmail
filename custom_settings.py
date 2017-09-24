@@ -183,7 +183,7 @@ def custom_settings():
 	
 	while True:
 		try:
-			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 50 or press Enter for Default ") or 20)
+			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 50 or press Enter for Default ") or 10)
 		except ValueError:
 			print("Must be a Number")
 			continue
