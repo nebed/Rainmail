@@ -38,7 +38,7 @@ def express_settings():
 	print_results_default = 'summarize'
 	num_results_per_page_default = 10
 	num_workers_default = 1
-	num_pages_for_keyword_default = 20
+	num_pages_for_keyword_default = 10
 	maximum_workers_default = 20
 	keywords = [ chosen_keyword ] 
 	sleeping_ranges_default = {
