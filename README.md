@@ -1,5 +1,6 @@
 # Rainmail
-A Windows Executable written in Python3 to scrape email addresses from country specific google search and keyword...customizable to improve search results with python functions for specific tasks as different files.
+A Windows Executable written in Python3 to scrape email addresses from country specific google search and keyword...
+customizable to improve search results with python functions for specific tasks as different files.
 ***STILL UNDER DEVELOPMENT***
 
 ***Rainmail.exe not available yet***
@@ -7,9 +8,13 @@ A Windows Executable written in Python3 to scrape email addresses from country s
 ***The full script Rainmail.py***
 
 Python Dependencies #Python3
+
 pip3 install GoogleScraper
+
 pip3 install bs4 #beautifulsoup
+
 pip3 install urllib3
+
 pip3 install selenium
 
 
