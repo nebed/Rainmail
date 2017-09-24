@@ -292,7 +292,7 @@ def express_settings():
 	print_results_default = 'summarize'
 	num_results_per_page_default = 10
 	num_workers_default = 1
-	num_pages_for_keyword_default = 10
+	num_pages_for_keyword_default = 20
 	maximum_workers_default = 20
 	keywords = [ chosen_keyword ] 
 	sleeping_ranges_default = {
@@ -322,7 +322,7 @@ def express_settings():
 		'num_workers':num_workers_default,
 		'num_pages_for_keyword':num_pages_for_keyword_default,
 		'maximum_workers':maximum_workers_default,
-		'search_offset':1,
+		'search_offset':2,
 		'sleeping_ranges':sleeping_ranges_default,
 		'google_sleeping_ranges':google_sleeping_ranges_default
 
@@ -512,7 +512,7 @@ def custom_settings():
 	
 	while True:
 		try:
-			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 50 or press Enter for Default ") or 10)
+			num_pages_for_keyword_user = int(input(" Enter How Many Pages of Google Results will be scraped between 1 and 50 or press Enter for Default ") or 20)
 		except ValueError:
 			print("Must be a Number")
 			continue
@@ -536,6 +536,20 @@ def custom_settings():
 		else:
 			print("You Have Chosen ", num_results_per_page_user, "results per page")
 			break
+
+	while True:
+		try:
+			search_offset_user = int(input(" Enter Search Offset, Google Page Number to Start Taking Results from") or 2)
+		except ValueError:
+			print("Must be a Number")
+			continue
+		if (search_offset_user < 1 and search_offset_user > num_pages_for_keyword_user):
+			print("Enter a Valid Number")
+			continue
+		else:
+			print("You Have Chosen a ", search_offset_user, "page offset")
+			break
+
 	while True:
 		try:
 			num_workers_user = int(input(" Enter How Many Browser instances will perform the search 1 and 10 or press Enter for Default ") or 1)
@@ -564,7 +578,7 @@ def custom_settings():
 		'num_workers':num_workers_user,
 		'num_pages_for_keyword':num_pages_for_keyword_user,
 		'maximum_workers':maximum_workers_default,
-		'search_offset':1,
+		'search_offset':search_offset_user,
 		'sleeping_ranges':sleeping_ranges_default,
 		'google_sleeping_ranges':google_sleeping_ranges_default,
 
@@ -626,11 +640,12 @@ def process_urls(urls_to_process):
 
 			if not link in urls_to_process and not link in processed_urls:   # add the new url to the queue if it was not enqueued nor processed yet
 				urls_to_process.append(link)
-	f = open('Rainmails.txt','w')    #indicate name of output file with google search links
-	sys.stdout = f
-	path= '/home/Desktop'  #for linux
-	print (emails, f)  # or f.write('...\n')  print each link to the file
+	f = open('Rainmails.txt','w')    #indicate name of output file to write emails
+	#sys.stdout = f
+	#path= '/home/Desktop'  #for linux
+	f.write(emails) 
 	f.close()
+
 	return emails
 
 #main function to start search
@@ -639,7 +654,7 @@ def rainmail():
 
 	if prompt_for_options() == 1:
 		print(process_urls(start_search(express_settings())))
-	else:
+	elif prompt_for_options() == 2:
 		print(process_urls(start_search(custom_settings())))
 	return True
 
