@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 	
+#function to set default search parameters
+
 def express_settings():
 	print("Available Search Country Codes are: "),
 	print(countrycodes)
@@ -36,15 +38,22 @@ def express_settings():
 	print_results_default = 'summarize'
 	num_results_per_page_default = 10
 	num_workers_default = 1
-	num_pages_for_keyword_default = 5
-	maximum_workers_default = 5
-	google_sleeping_ranges_default = {
-			1:(50,70),
-			5:(70,100),
-			30:(100,215),
-			127:(125,200),
-		}
+	num_pages_for_keyword_default = 20
+	maximum_workers_default = 20
 	keywords = [ chosen_keyword ] 
+	sleeping_ranges_default = {
+		1:  (1, 2),
+		5:  (2, 4),
+		30: (10, 20),
+		127: (30, 50),
+	}
+	google_sleeping_ranges_default = {
+		1:  (2, 3),
+		5:  (3, 5),
+		30: (10, 20),
+		127: (30, 50),
+	}
+
 	config = {
 		'keywords':keywords,
 		'google_search_url':google_search_url_default, 
@@ -58,8 +67,11 @@ def express_settings():
 		'num_results_per_page':num_results_per_page_default,
 		'num_workers':num_workers_default,
 		'num_pages_for_keyword':num_pages_for_keyword_default,
-		'google_sleeping_ranges':google_sleeping_ranges_default,
-		'maximum_workers':maximum_workers_default
+		'maximum_workers':maximum_workers_default,
+		'search_offset':1,
+		'sleeping_ranges':sleeping_ranges_default,
+		'google_sleeping_ranges':google_sleeping_ranges_default
+
 		}
 
 	return config
